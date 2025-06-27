@@ -6,8 +6,9 @@ from app.models import Actor
 # add manager here
 class ActorManager:
     def __init__(self):
-        self._connection = sqlite3.connect("../actors_db.sqlite")
         self.table_name = "actors"
+        self.db_name = "actors_db"
+        self._connection = sqlite3.connect(f"../{self.db_name}.sqlite")
 
     def all(self):
         actors_cursor = self._connection.execute(
