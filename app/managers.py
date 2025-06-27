@@ -1,4 +1,5 @@
 import sqlite3
+from typing import List, Tuple
 
 from app.models import Actor
 
@@ -10,13 +11,11 @@ class ActorManager:
         self.db_name = "actors_db"
         self._connection = sqlite3.connect(f"../{self.db_name}.sqlite")
 
-    def all(self) -> None:
+    def all(self) -> List[Tuple[int, str, str]]:
         actors_cursor = self._connection.execute(
             f"SELECT * FROM {self.table_name}"
         )
-        print(f"Actors_cursor: {actors_cursor}")
-        for row in actors_cursor:
-            print(row)
+        return actors_cursor.fetchall()
 
     def create(self, first_name: str, last_name: str) -> None:
         self._connection.execute(
